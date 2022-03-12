@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Easiest Way to Add Input Masks to Your Forms</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('asset/css/form.css') }}">
+</head>
+{% include "view/nav.html.twig" %}
+<body>
+<div class="registration-form my-5">
+    <form method="post" action="{{ path('update_user') }}" class="text-center">
+        <div class="form-icon">
+            <span><i class="icon icon-user"></i></span>
+        </div>
+        <div class="form-group text-center">
+            <label>
+                Name<input type="text" value="{{ app.user.name }}" name="name" class="form-control">
+            </label>
+        </div>
+        <div class="form-group text-center">
+            <label>
+                <First></First> Name<input type="text" name="firstName" value="{{ app.user.firstName }}" class="form-control">
+            </label>
+        </div>
+        <div class="form-group text-center">
+            <label>
+                email   <input type="email" name="email" value="{{ app.user.email }}" class="form-control">
+            </label>
+        </div>
+        <div class="form-group text-center">
+            <label>
+                Phone   <input type="text" name="phone" value="{{ app.user.phone }}" class="form-control">
+            </label>
+        </div>
+      <button type="submit" class="btn btn-success"> Modifier</button>
+    </form>
+    <div class="social-media">
+    </div>
+</div>
+{% endblock %}

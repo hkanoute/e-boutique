@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    {% include("view/nav.html.twig") %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>The Easiest Way to Add Input Masks to Your Forms</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('asset/css/form.css') }}">
+    </head>
+    <div class="registration-form py-5 my-5 ">
+        <form method="post">
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.name }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                <div class="text-center">
+                    <label for="inputEmail"><h1 class="h3 mb-3 font-weight-normal">Email</h1></label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control item" autocomplete="email" required autofocus>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <label for="inputPassword"><h1 class="h3 mb-3 font-weight-normal text-center">Mot de passe</h1></label>
+                </div>
+                <input type="password" name="password" id="inputPassword" class="form-control item" autocomplete="current-password" required>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+            </div>
+
+            {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+            #}
+            <div class="text-center">
+                <button class="btn btn-lg btn-primary my-3" type="submit">
+                    Me connecter
+                </button>
+            </div>
+
+        </form>
+        <div class="social-media">
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+{% endblock %}

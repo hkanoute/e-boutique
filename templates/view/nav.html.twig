@@ -1,0 +1,44 @@
+{% set currentPath = app.request.get('_route') %}
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="{{ path('index_market') }}">Gamerket</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('product_index') }}">Dashboard</a></li>
+                {% endif %}
+                {% if not app.user %}
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_register') }}">Inscription</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">Se connecter</a></li>
+                {% else %}
+                    <li class="nav-item nav-link active">Bienvenue <a href="{{ path('user') }}">{{  app.user.name }} </a></li>
+                {% endif %}
+                {% if currentPath == "index_market" %}
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" id="allProducts">Tous les produits</a></li>
+                        <li><a class="dropdown-item" id="consoles">Les consoles</a></li>
+                        <li><a class="dropdown-item" id="accesories">Les accésoires</a></li>
+                        <li><a class="dropdown-item" id="games">Les jeux</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+            {% if app.user %}
+            <a class="px-5 no-link-decoration" href="{{ path('app_logout') }}">Déconnexion</a>
+            {% endif %}
+            {% if currentPath == "index_market" %}
+            <button class="btn btn-outline-dark no-decoration" id="cart">
+                <a class="no-link-decoration" href="{{ path('cart_products') }}">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span id="validateCart"  class="badge bg-danger text-white ms-1 rounded-pill">{{ cartline }}</span>
+                </a>
+            </button>
+             {% endif %}
+        </div>
+    </div>
+</nav>

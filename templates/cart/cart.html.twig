@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Your cart{% endblock %}
+
+  {% block stylesheetsCart %}
+      {{ encore_entry_link_tags('style') }}
+  {% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+
+{% block body %}
+    {% include("view/nav.html.twig") %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container padding-bottom-3x mb-1  ">
+        <!-- Shopping Cart-->
+        <div class="table-responsive shopping-cart py-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Le produit</th>
+                    <th class="text-center">Quantité</th>
+                    <th class="text-center">Prix Unitaire </th>
+                    <th class="text-center">Prix total</th>
+                  <!--  <th class="text-center text-danger">Clear Cart</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                {% set sum = 0 %}
+
+                <tr>
+                    {% for item in product %}
+                    <td>
+                        <div class="product-item">
+
+                            <a><img src="{{ item.product.imagePath }}" alt="Product" height="140px"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a>{{ item.product.name }}</a></h4><span><em>Description:</em>{{ item.product.description }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                      {{ item.quantity }}
+                    </td>
+                    <td class="text-center text-lg text-medium">{{ item.product.price}} €</td>
+                    <td class="text-center text-lg text-medium">{{ item.product.price * item.quantity}} €</td>
+                    {% set sum = sum  + item.product.price * item.quantity %}
+                   <!-- <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>-->
+                </tr>
+                {% endfor %}
+               <!-- <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="#"><img src="https://via.placeholder.com/220x180/5F9EA0/000000" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="#">Daily Fabric Cap</a></h4><span><em>Size:</em> XL</span><span><em>Color:</em> Black</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option selected="">2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="text-center">—</td>
+                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product-item">
+                            <a class="product-thumb" href="#"><img src="https://via.placeholder.com/220x180/9932CC/000000" alt="Product"></a>
+                            <div class="product-info">
+                                <h4 class="product-title"><a href="#">Cole Haan Crossbody</a></h4><span><em>Size:</em> -</span><span><em>Color:</em> Turquoise</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="count-input">
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="text-center">—</td>
+                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="shopping-cart-footer">
+            <div class="column text-lg text-center">total: <span class="text-medium">{{ sum }} €</span></div>
+        </div>
+        <div class="shopping-cart-footer ">
+            <div class="column text-center">
+                <a class="btn btn-secondary" href="{{ path('index_market') }}">Revenir dans la boutique</a>
+                {% if app.user %}
+                <a class="btn btn-success" href="{{ path('valid_carte') }}">Commander</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ path('app_login') }}">Se connecter</a>
+                {% endif %}
+                <!--<a class="btn btn-danger" href="{{ path('valid_carte') }}">Vider le panier</a>-->
+            </div>
+        </div>
+    </div>
+{% endblock %}
